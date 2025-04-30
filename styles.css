@@ -1,0 +1,107 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 2rem;
+    background-color: #f9f9f9;
+  }
+  
+  #app {
+    max-width: 800px;
+    margin: 0 auto;
+    background: white;
+    padding: 2rem;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  }
+  
+  label {
+    display: block;
+    margin: 1rem 0 0.5rem;
+  }
+  
+  input, select, textarea {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+  }
+  
+  #sizeGridContainer {
+    margin-top: 1.5rem;
+  }
+  
+  #sizeGrid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+  
+  .size-btn {
+    padding: 0.5rem 1rem;
+    border: 1px solid #bbb;
+    border-radius: 5px;
+    background: white;
+    cursor: pointer;
+  }
+  
+  .size-btn:hover {
+    background: #f0f0f0;
+  }
+  
+  .size-btn.selected {
+    background-color: lightblue;
+    border-color: #007BFF;
+  }
+  
+  #formActions {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+  }
+  
+  .action-btn {
+    padding: 0.6rem 1.2rem;
+    font-weight: bold;
+    background: #007BFF;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+  
+  .action-btn:hover {
+    background: #0056b3;
+  }
+  
+  #entryList {
+    margin-top: 2rem;
+  }
+  
+  .entry-item {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 1px solid #ccc;
+    padding: 0.5rem 0;
+  }
+  
+  .entry-item span {
+    flex: 1;
+    padding: 0 0.5rem;
+  }
+  
+  #toast {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background: #4caf50;
+    color: white;
+    padding: 1rem 1.5rem;
+    border-radius: 5px;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+  }
+  
+  #toast.show {
+    opacity: 1;
+  }
+  

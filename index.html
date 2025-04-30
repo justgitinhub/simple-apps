@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Size Grid App</title>
+  <link rel="stylesheet" href="styles.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+</head>
+<body>
+  <div id="app">
+    <h2>Missing Sizes Entry</h2>
+    <label>Store Name:
+      <input type="text" id="storeName" placeholder="Enter store name" required />
+    </label>
+
+    <label>Gender:
+      <select id="gender">
+        <option value="">Select Gender</option>
+        <option value="Men's">Men's</option>
+        <option value="Women's">Women's</option>
+      </select>
+    </label>
+
+    <label>Product Type:
+      <select id="productType">
+        <option value="">Select Type</option>
+        <option value="Long Bottoms">Long Bottoms</option>
+        <option value="Shorts">Shorts</option>
+        <option value="Jackets">Jackets</option>
+        <option value="Wovens">Wovens</option>
+        <option value="Knits">Knits</option>
+        <option value="Tees">Tees</option>
+        <option value="Dresses">Dresses</option>
+        <option value="Other">Other</option>
+      </select>
+    </label>
+
+    <label>Product Name:
+      <input type="text" id="productName" placeholder="Product name" required />
+    </label>
+
+    <label>Product Code:
+      <input type="text" id="productCode" placeholder="Product code" required />
+    </label>
+
+    <label>Notes:
+      <textarea id="notes" placeholder="Additional notes..."></textarea>
+    </label>
+
+    <div id="sizeGridContainer">
+      <label>Missing Sizes:</label>
+      <div id="sizeGrid"></div>
+    </div>
+
+    <div id="formActions">
+      <button id="addEntryBtn" class="action-btn" type="button">Add Entry</button>
+      <button id="exportBtn" class="action-btn" type="button">Export to Excel</button>
+    </div>
+
+    <div id="entryList"></div>
+  </div>
+
+  <div id="toast">Export successful!</div>
+
+  <script src="script.js"></script>
+</body>
+</html>
