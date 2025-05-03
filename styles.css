@@ -102,9 +102,6 @@ body {
 
   #entryList {
     margin-top: 1rem;
-    padding: 8px;
-    max-width: 100%;
-    overflow-x: auto;
   }
   
   .entry-item {
