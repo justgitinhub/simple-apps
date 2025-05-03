@@ -9,7 +9,7 @@
 </head>
 <body>
   <div id="app">
-    <h2>Missing Sizes Entry</h2>
+    <h2>Missing Sizes Entry Form App</h2>
     <label>Store Name:
       <input type="text" id="storeName" placeholder="Enter store name" required />
     </label>
@@ -17,15 +17,15 @@
     <label>Gender:
       <select id="gender">
         <option value="">Select Gender</option>
-        <option value="Men's">Men's</option>
-        <option value="Women's">Women's</option>
+        <option value="Mens">Men's</option>
+        <option value="Womens">Women's</option>
       </select>
     </label>
 
     <label>Product Type:
       <select id="productType">
         <option value="">Select Type</option>
-        <option value="Long Bottoms">Long Bottoms</option>
+        <option value="LongBottoms">Long Bottoms</option>
         <option value="Shorts">Shorts</option>
         <option value="Jackets">Jackets</option>
         <option value="Wovens">Wovens</option>
@@ -45,7 +45,7 @@
     </label>
 
     <label>Notes:
-      <textarea id="notes" placeholder="Additional notes..."></textarea>
+      <textarea id="notes" placeholder="[optional] Additional notes..."></textarea>
     </label>
 
     <div id="sizeGridContainer">
@@ -58,7 +58,9 @@
       <button id="exportBtn" class="action-btn" type="button">Export to Excel</button>
     </div>
 
-    <div id="entryList"></div>
+    <div id="entriesContainer">
+      <h3>Saved Entries</h3>
+    <div id="entryList"></div></div>
   </div>
 
   <div id="toast">Export successful!</div>

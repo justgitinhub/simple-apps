@@ -24,39 +24,46 @@ body {
     padding: 0.5rem;
     border: 1px solid #ccc;
     border-radius: 5px;
-    font-size: 16px;
   }
   
+    /* Size Grid */
   #sizeGridContainer {
     margin-top: 1.5rem;
+    padding-bottom:2px;
   }
-  
+
   #sizeGrid {
     display: flex;
     flex-wrap: wrap;
-    gap: 0.5rem;
+    gap: 8px;
+    margin-top: 10px;
+    margin-bottom: 20px;
   }
   
   .size-btn {
-    padding: 0.5rem 1rem;
-    border: 1px solid #bbb;
-    border-radius: 5px;
-    background: white;
+    background-color: #e9ecef;
+    border: 1px solid #ccc;
+    padding: 6px 12px;
+    border-radius: 6px;
+    font-size: 13px;
     cursor: pointer;
+    transition: background-color 0.2s;
   }
   
+  .size-btn.selected {
+    background-color: #00b7ff;
+    color: white;
+  }
+
   .size-btn:hover {
     background: #f0f0f0;
   }
   
-  .size-btn.selected {
-    background-color: lightblue;
-    border-color: #007BFF;
-  }
-  
+    /* Buttons */
   #formActions {
     margin-top: 1.5rem;
     display: flex;
+    justify-content: space-between;
     gap: 1rem;
   }
   
@@ -74,22 +81,50 @@ body {
     background: #0056b3;
   }
   
+  .delete-entry {
+    background-color: red;
+    color: white;
+    border: none;
+    font-weight: bold;
+    margin-right: 8px;
+    cursor: pointer;
+    border-radius: 50%;
+    width: 24px;
+    height: 20px;
+    text-align: center;
+    line-height: 20px;
+  }
+
+  /* Entries Container */
+  #entriesContainer {
+    margin-top: 1rem;
+    border: 1px solid rgb(89, 89, 89);
+    border-radius: 4px;
+    padding: 1rem;
+  }
+
   #entryList {
-    margin-top: 2rem;
+    margin-top: 1rem;
   }
   
   .entry-item {
     display: flex;
     justify-content: space-between;
-    border-bottom: 1px solid #ccc;
-    padding: 0.5rem 0;
+    gap: 8px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 8px;
+    margin-bottom: 8px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
-  
   .entry-item span {
-    flex: 1;
-    padding: 0 0.5rem;
-  }
+    flex: 1 1 30%;
+    min-width: 100px;
+  }  
   
+    /* Toast Notification */
   #toast {
     position: fixed;
     bottom: 20px;
@@ -105,4 +140,3 @@ body {
   #toast.show {
     opacity: 1;
   }
-  
