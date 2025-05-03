@@ -101,26 +101,40 @@ body {
   }
 
   #entryList {
-    margin-top: 1rem;
+    padding: 10px;
+    max-width: 100%;
+    overflow-x: auto;
   }
   
+.entry-item {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  padding: 8px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+}
+
+.entry-item span {
+  flex: 1 1 100%;
+  font-size: 1rem;
+  margin: 2px 0;
+  word-break: break-word;
+}
+
+/* Reduce font and spacing on small screens */
+@media (max-width: 480px) {
   .entry-item {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 8px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    padding: 6px;
   }
+
   .entry-item span {
-    flex: 1 1 30%;
-    min-width: 100px;
-  }  
+    font-size: 0.85rem;
+  }
+}
   
     /* Toast Notification */
   #toast {
