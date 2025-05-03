@@ -38,6 +38,7 @@ body {
     gap: 8px;
     margin-top: 10px;
     margin-bottom: 20px;
+    overflow-x: auto;
   }
   
   .size-btn {
