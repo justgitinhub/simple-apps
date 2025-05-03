@@ -78,10 +78,6 @@ body {
     cursor: pointer;
   }
   
-  .action-btn:hover {
-    background: #0056b3;
-  }
-  
   .delete-entry {
     background-color: red;
     color: white;
@@ -106,7 +102,6 @@ body {
 
   #entryList {
     margin-top: 1rem;
-    border: 1px solid black;
     padding: 10px;
     border-radius: 8px;
     max-width: 100%;
@@ -127,7 +122,6 @@ body {
   }
   .entry-item span {
     flex: 1 1 100%;
-    font-size: 1rem;
     margin: 2px 0;
   }  
   
