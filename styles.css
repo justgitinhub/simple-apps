@@ -102,7 +102,6 @@ body {
   #entryList {
     padding: 10px;
     max-width: 100%;
-    overflow-x: auto;
   }
   
   .entry-item {
@@ -122,7 +121,6 @@ body {
   .entry-item span {
     flex: 1 1 30%;
     font-size: 1rem;
-    min-width: 100px;
   }
 
 /* Reduce font and spacing on small screens */
