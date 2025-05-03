@@ -35,7 +35,6 @@ body {
 
   #sizeGrid {
     display: flex;
-    flex-wrap: wrap;
     gap: 8px;
     margin-top: 10px;
     margin-bottom: 20px;
@@ -117,7 +116,7 @@ body {
   }
 
   .entry-item span {
-    flex: 1 1 100%;
+    flex: 1 1 30%;
     font-size: 1rem;
     margin: 2px 0;
   }
