@@ -106,24 +106,23 @@ body {
     overflow-x: auto;
   }
   
-.entry-item {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  padding: 8px;
-  margin-bottom: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-}
+  .entry-item {
+    display: flex;
+    flex-wrap: wrap;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    padding: 8px;
+    margin-bottom: 10px;
+    background-color: #fff;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  }
 
-.entry-item span {
-  flex: 1 1 100%;
-  font-size: 1rem;
-  margin: 2px 0;
-  word-break: break-word;
-}
+  .entry-item span {
+    flex: 1 1 100%;
+    font-size: 1rem;
+    margin: 2px 0;
+    word-break: break-word;
+  }
 
 /* Reduce font and spacing on small screens */
 @media (max-width: 480px) {
