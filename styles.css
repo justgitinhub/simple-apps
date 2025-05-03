@@ -108,7 +108,6 @@ body {
   
   .entry-item {
     display: flex;
-    flex-wrap: wrap;
     border: 1px solid #ccc;
     border-radius: 6px;
     padding: 8px;
@@ -121,7 +120,6 @@ body {
     flex: 1 1 100%;
     font-size: 1rem;
     margin: 2px 0;
-    word-break: break-word;
   }
 
 /* Reduce font and spacing on small screens */
