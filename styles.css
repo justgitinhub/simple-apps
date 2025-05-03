@@ -111,7 +111,7 @@ body {
   .entry-item {
     display: flex;
     justify-content: space-between;
-    gap: 8px;
+    gap: 6px;
     align-items: center;
     background: #fff;
     border: 1px solid #ddd;
