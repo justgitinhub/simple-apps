@@ -102,8 +102,7 @@ body {
 
   #entryList {
     margin-top: 1rem;
-    padding: 10px;
-    border-radius: 8px;
+    padding: 8px;
     max-width: 100%;
     overflow-x: auto;
   }
