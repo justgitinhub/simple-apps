@@ -35,7 +35,7 @@ body {
 
   #sizeGrid {
     display: flex;
-    gap: 8px;
+    gap: 4px;
     margin-top: 10px;
     margin-bottom: 20px;
   }
@@ -44,7 +44,7 @@ body {
     background-color: #e9ecef;
     border: 1px solid #ccc;
     padding: 6px 12px;
-    border-radius: 6px;
+    border-radius: 4px;
     font-size: 13px;
     cursor: pointer;
     transition: background-color 0.2s;
@@ -107,18 +107,22 @@ body {
   
   .entry-item {
     display: flex;
-    border: 1px solid #ccc;
-    border-radius: 6px;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px;
+    align-items: center;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
     padding: 8px;
-    margin-bottom: 10px;
-    background-color: #fff;
+    margin-bottom: 8px;
     box-shadow: 0 2px 4px rgba(0,0,0,0.05);
   }
 
   .entry-item span {
     flex: 1 1 30%;
     font-size: 1rem;
-    margin: 2px 0;
+    min-width: 100px;
   }
 
 /* Reduce font and spacing on small screens */
