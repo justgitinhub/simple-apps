@@ -1,144 +1,178 @@
 body {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 2rem;
-    background-color: #f9f9f9;
-  }
-  
-  #app {
-    max-width: 800px;
-    margin: 0 auto;
-    background: white;
-    padding: 2rem;
-    border-radius: 10px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  }
-  
-  label {
-    display: block;
-    margin: 1rem 0 0.5rem;
-  }
-  
-  input, select, textarea {
-    width: 100%;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 1rem;
+  background: #f5f5f5;
+}
+
+.app-container {
+  max-width: 600px;
+  margin: auto;
+  background: white;
+  padding: 1rem;
+  border-radius: 12px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-grid {
+  display: grid;
+  gap: 0.75rem;
+}
+
+.form-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.form-label {
+  width: 30%;
+  white-space: nowrap;
+}
+
+.form-input {
+  width: 68%;
+}
+
+input, select {
+  width: 95%;
+  padding: 0.5rem;
+  border-radius: 10px;
+  border: 1px solid #ccc;
+}
+
+.size-grid {
+  margin: 1rem 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+}
+
+.size-grid button {
+  padding: 0.4rem 0.6rem;
+  border: 1px solid #888;
+  background: white;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.size-grid button.selected {
+  background: #007bff;
+  color: white;
+}
+
+.button-row {
+  margin: 1rem 0;
+  display: flex;
+  justify-content: space-between;
+  gap: 0.5rem;
+}
+
+.export-btn {
+  background: green;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+button {
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 8px;
+}
+
+.add-entry {
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.add-entry:hover {
+  background: #1ac5ce;
+}
+
+.entry-item {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 0.2rem;
+  padding-left: 1.5rem;
+  margin-bottom: 0.5rem;
+  position: relative;
+  background: #fafafa;
+  font-size: 12px;
+}
+
+.delete-entry {
+  position: absolute;
+  right: 4px;
+  background-color: red;
+  color: white;
+  border-radius: 50%;
+  font-weight: bold;
+  width: 24px;
+  height: 24px;
+  padding: 0;
+}
+
+.toast {
+  display: none;
+  position: fixed;
+  bottom: 1rem;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #28a745;
+  color: white;
+  padding: 1rem;
+  border-radius: 8px;
+}
+
+.toast.show {
+  display: block;
+}
+
+/* Entry List Container */
+.entry-list-container {
+  margin-top: 1rem;
+  padding-right: 1.5rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  border: 2px solid #ccc;
+  border-radius: 1rem;
+  background-color: #f9f9f9;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+  max-width: 100%;
+  max-height: 500px;
+  overflow-y: auto;
+}
+
+/* Size Grid Container */
+.size-grid-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 1rem;
+  background-color: #ffffff;
+  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
+}
+
+.entry-group-title {
+  font-weight: normal;
+  text-align: center;
+  margin-bottom: 0.25rem;
+  padding-left: 0.25rem;
+}
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .entry-list-container, .size-grid-container {
     padding: 0.5rem;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
   }
-  
-    /* Size Grid */
-  #sizeGridContainer {
-    margin-top: 1.5rem;
-    padding-bottom:2px;
-  }
-
-  #sizeGrid {
-    display: flex;
-    flex-wrap: wrap;
-    gap: 8px;
-    margin-top: 10px;
-    margin-bottom: 20px;
-  }
-  
-  .size-btn {
-    background-color: #e9ecef;
-    border: 1px solid #ccc;
-    padding: 6px 12px;
-    border-radius: 6px;
-    font-size: 13px;
-    cursor: pointer;
-    transition: background-color 0.2s;
-  }
-  
-  .size-btn.selected {
-    background-color: #00b7ff;
-    color: white;
-  }
-
-  .size-btn:hover {
-    background: #f0f0f0;
-  }
-  
-    /* Buttons */
-  #formActions {
-    margin-top: 1.5rem;
-    display: flex;
-    justify-content: space-between;
-    gap: 1rem;
-  }
-  
-  .action-btn {
-    padding: 0.6rem 1.2rem;
-    font-weight: bold;
-    background: #007BFF;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-  }
-  
-  .action-btn:hover {
-    background: #0056b3;
-  }
-  
-  .delete-entry {
-    background-color: red;
-    color: white;
-    border: none;
-    font-weight: bold;
-    margin-right: 8px;
-    cursor: pointer;
-    border-radius: 50%;
-    width: 24px;
-    height: 20px;
-    text-align: center;
-    line-height: 20px;
-  }
-
-  /* Entries Container */
-  #entriesContainer {
-    margin-top: 1rem;
-    border: 1px solid rgb(89, 89, 89);
-    border-radius: 4px;
-    padding: 1rem;
-  }
-
-  #entryList {
-    margin-top: 1rem;
-  }
-  
   .entry-item {
-    display: flex;
-    justify-content: space-between;
-    gap: 6px;
-    align-items: center;
-    background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 8px;
-    margin-bottom: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
-    font-size-adjust: 8px;
+    font-size: 0.9rem;
   }
-  .entry-item span {
-    flex: 1 1 30%;
-    min-width: 100px;
-  }  
-  
-    /* Toast Notification */
-  #toast {
-    position: fixed;
-    bottom: 20px;
-    right: 20px;
-    background: #4caf50;
-    color: white;
-    padding: 1rem 1.5rem;
-    border-radius: 5px;
-    opacity: 0;
-    transition: opacity 0.5s ease-in-out;
-  }
-  
-  #toast.show {
-    opacity: 1;
-  }
+}
