@@ -9,7 +9,7 @@ body {
   max-width: 600px;
   margin: auto;
   background: white;
-  padding: 2rem;
+  padding: 1.5rem;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
@@ -26,12 +26,12 @@ body {
 }
 
 .form-label {
-  width: 30%;
+  width: 40%;
   white-space: nowrap;
 }
 
 .form-input {
-  width: 68%;
+  width: 58%;
 }
 
 input, select {
@@ -50,7 +50,7 @@ input, select {
 }
 
 .size-grid button {
-  padding: 0.8rem  1rem;
+  padding: 0.6rem  0.8rem;
   border: 1px solid #888;
   background: white;
   cursor: pointer;
