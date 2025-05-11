@@ -35,21 +35,14 @@ document.getElementById("addEntryBtn").addEventListener("click", () => {
   renderSizeButtons();  // update after clearing
 });
 
-document.getElementById("gender").addEventListener("change", () => {
-  selectedSizes.clear();
-  renderSizeButtons();
-});
 
-document.getElementById("productType").addEventListener("change", () => {
-  selectedSizes.clear();
-  renderSizeButtons();
-});
 
 function renderEntries() {
   const container = document.getElementById("entryList");
   container.innerHTML = "";
 
   const genders = ["Mens", "Womens"];
+
   genders.forEach(gender => {
     const genderEntries = entries
       .map((e, i) => ({ ...e, index: i }))
@@ -57,31 +50,51 @@ function renderEntries() {
 
     if (genderEntries.length === 0) return;
 
-    const header = document.createElement("s2");
-    header.textContent = gender;
-    container.appendChild(header);
+    const genderHeader = document.createElement("h3");
+    genderHeader.textContent = gender;
+    container.appendChild(genderHeader);
 
-    genderEntries.forEach(entry => {
-      const item = document.createElement("div");
-      item.className = "entry-item";
+    // 1. Group entries by product type within the current gender
+    const entriesByProductType = genderEntries.reduce((acc, entry) => {
+      if (!acc[entry.productType]) {
+        acc[entry.productType] = [];
+      }
+      acc[entry.productType].push(entry);
+      return acc;
+    }, {});
 
-      const deleteBtn = document.createElement("button");
-      deleteBtn.className = "delete-entry";
-      deleteBtn.setAttribute("data-index", entry.index);
-      deleteBtn.setAttribute("title", "Remove Entry");
-      deleteBtn.textContent = "−";
-      item.appendChild(deleteBtn);
-      const details = document.createElement("div");
-      details.className = "entry-details";
-      details.innerHTML = `
-        <div><strong>Product Name:</strong> ${entry.productName}</div>
-        <div><strong>Product Code:</strong> ${entry.productCode}</div>
-        <div><strong>Sizes:</strong> ${entry.sizes.join(", ")}</div>
-        <div><strong>Notes:</strong> ${entry.notes}</div>
-      `;
+    // 2. Iterate through the product types and render entries for each
+    const productTypes = Object.keys(entriesByProductType).sort(); // Get unique product types and sort them
 
-      item.appendChild(details);
-      container.appendChild(item);
+    productTypes.forEach(productType => {
+      const productTypeHeader = document.createElement("s2"); // Or any suitable heading tag
+      productTypeHeader.textContent = productType;
+      container.appendChild(productTypeHeader);
+
+      const productTypeEntries = entriesByProductType[productType];
+      productTypeEntries.forEach(entry => {
+        const item = document.createElement("div");
+        item.className = "entry-item";
+
+        const deleteBtn = document.createElement("button");
+        deleteBtn.className = "delete-entry";
+        deleteBtn.setAttribute("data-index", entry.index);
+        deleteBtn.setAttribute("title", "Remove Entry");
+        deleteBtn.textContent = "−";
+        item.appendChild(deleteBtn);
+
+        const details = document.createElement("div");
+        details.className = "entry-details";
+        details.innerHTML = `
+          <div><strong>Product Name:</strong> ${entry.productName}</div>
+          <div><strong>Product Code:</strong> ${entry.productCode}</div>
+          <div><strong>Sizes:</strong> ${entry.sizes.join(", ")}</div>
+          <div><strong>Notes:</strong> ${entry.notes}</div>
+        `;
+
+        item.appendChild(details);
+        container.appendChild(item);
+      });
     });
   });
 
@@ -93,6 +106,14 @@ function renderEntries() {
     });
   });
 }
+
+document.getElementById("addEntryBtn").addEventListener("click", () => {
+  // ...
+  console.log("renderSizeButtons:", renderSizeButtons);
+  selectedSizes.clear();
+  renderSizeButtons();
+  // ...
+});
 
 function renderSizeButtons() {
   const grid = document.getElementById("sizeGrid");
@@ -107,8 +128,6 @@ function renderSizeButtons() {
   } else if (productType === "Wovens") {
     sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   } else if (productType === "Knits") {
-    sizes = ["XS", "S", "M", "L", "XL", "XXL"];
-  } else if (productType === "Tees") {
     sizes = ["XS", "S", "M", "L", "XL", "XXL"];
   } else if (productType === "Dresses") {
     sizes = ["XS", "S", "M", "L", "XL", "XXL"];
@@ -147,8 +166,16 @@ function renderSizeButtons() {
   });
 }
 
-document.getElementById("gender").addEventListener("change", renderSizeButtons);
-document.getElementById("productType").addEventListener("change", renderSizeButtons);
+document.getElementById("gender").addEventListener("change", () => {
+  selectedSizes.clear();
+  renderSizeButtons();
+});
+document.getElementById("productType").addEventListener("change", () => {
+  selectedSizes.clear();
+  renderSizeButtons();
+});
+
+
 
 document.getElementById("exportBtn").addEventListener("click", () => {
   if (entries.length === 0) return;
@@ -168,8 +195,42 @@ document.getElementById("exportBtn").addEventListener("click", () => {
   XLSX.utils.book_append_sheet(wb, ws, "Missing Sizes");
 
   XLSX.writeFile(wb, filename);
+});
 
-  const toast = document.getElementById("toast");
-  toast.classList.add("show");
-  setTimeout(() => toast.classList.remove("show"), 3000);
+
+
+
+document.querySelectorAll(".gender-icon").forEach(btn => {
+  btn.addEventListener("click", () => {
+    document.querySelectorAll(".gender-icon").forEach(b => b.classList.remove("selected"));
+    btn.classList.add("selected");
+    const selectedGender = btn.getAttribute("data-gender");
+    document.getElementById("gender").value = selectedGender;  // Optional: sync hidden input
+    renderSizeButtons(); // Adjust size buttons based on selected gender
+  });
+});
+
+
+  const toggleButton = document.getElementById('toggleInfo');
+  const infoBox = document.getElementById('infoBox');
+
+  toggleButton.addEventListener('click', () => {
+    if (infoBox.style.display === 'none') {
+      infoBox.style.display = 'block';
+      toggleButton.textContent = 'Minimize Info';
+    } else {
+      infoBox.style.display = 'none';
+      toggleButton.textContent = 'Show More Information About Application';
+    }
+  });
+
+
+  document.addEventListener('DOMContentLoaded', () => {
+  const clearProductInfoBtn = document.getElementById("clearProductInfoBtn");
+
+  clearProductInfoBtn.addEventListener("click", () => {
+    document.getElementById("productName").value = "";
+    document.getElementById("productCode").value = "";
+    document.getElementById("notes").value = "";
+  });
 });
