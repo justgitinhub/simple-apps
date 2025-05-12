@@ -65,7 +65,7 @@ input, select {
 .button-row {
   margin: 1rem 0;
   display: flex;
-  justify-content: space-between;
+  justify-content: space-around;
   gap: 0.5rem;
 }
 
@@ -76,6 +76,8 @@ input, select {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  width: 40%;
+  padding: 12px;
 }
 
 button {
@@ -100,6 +102,8 @@ button {
   border-radius: 6px;
   cursor: pointer;
   font-weight: bold;
+  width: 40%;
+  padding: 12px;
 }
 
 .entry-item {

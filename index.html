@@ -6,14 +6,13 @@
   <title>Product List Application</title>
   <link rel="stylesheet" href="styles.css" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
-  <!-- Load Font Awesome from CDN -->
-<link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
 </head>
 <body>
   <div class="app-container">
     <h1>Product List Application</h1>
-    <s1>(Input data on out-of-stock product sizes and export entry list to an Excel file.)</s1>
-    <br><br>
+    <p>(Input data on out-of-stock product sizes and export entry list to an Excel file.)</p>
+    <br>
 
     <div class="form-grid">
       <div class="form-row">
@@ -23,61 +22,60 @@
       </div>
 
       <hr style="border: 1px solid rgb(221, 221, 221);">
-      
 
-      <div class="form-grid">
-        <div class="sec-title">PRODUCT ENTRY</div>
-      <div class="form-row">
-        <div class="form-label">Product Name:</div>
-        <div class="form-input"><input type="text" id="productName" placeholder="e.g., 514 Straight" required /></div>
-      </div>
-      <div class="form-row">
-        <div class="form-label">Product Code:</div>
-        <div class="form-input"><input type="text" id="productCode" placeholder="XXXXX-XXXX" required /></div>
-      </div>
-      <div class="form-row">
-        <div class="form-label">Notes:</div>
-        <div class="form-input"><input type="text" id="notes" placeholder="optional" /></div>
-      </div>
+      <div class="gender-selection" id="genderButtons"> <button class="gender-icon" data-gender="Mens" title="Mens" value="Mens">
+       <i class="fas fa-male fa-2x"></i>
+       <span>Mens</span>
+      </button>
+     <button class="gender-icon" data-gender="Womens" title="Womens" value="Womens">
+        <i class="fas fa-female fa-2x"></i>
+       <span>Womens</span>
+     </button>
     </div>
-    <br>
-      <div class="sec-title">SIZE SELECTION</div>
+    <select id="gender" style="display:none;"></select> 
 
-<!-- Gender Selection Icon Buttons -->
-<div class="gender-selection" id="gender">
-  <button class="gender-icon" data-gender="Mens" title="Mens" value="Mens">
-    <i class="fas fa-male fa-2x"></i>
-    <span>Mens</span>
-  </button>
-  <button class="gender-icon" data-gender="Womens" title="Womens" value="Womens">
-    <i class="fas fa-female fa-2x"></i>
-    <span>Womens</span>
-  </button>
-</div>
+
+<div class="form-grid" id="productForm">
+  <div class="sec-title">PRODUCT ENTRY</div>
+
+  <div class="form-row">
+    <div class="form-label">Product Name:</div>
+    <div class="form-input">
+      <select id="productName" disabled>
+        <option value="">Select Gender First</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row">
+    <div class="form-label">Product Code:</div>
+    <div class="form-input">
+      <select id="productCode" disabled>
+        <option value="">Select Product Name First</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="form-row" style="display: none;">
+    <div class="form-label">Product Type:</div>
+    <div class="form-input">
+      <input type="text" id="productType" disabled placeholder="Auto-filled from data" />
+    </div>
+  </div>
 
     <div class="form-row">
-      <div class="form-label">Product Type:</div>
-      <div class="form-input">
-        <select id="productType">
-          <option value="">Select</option>
-          <option value="LongBottoms">Long Bottoms</option>
-          <option value="Shorts">Shorts</option>
-          <option value="Jackets">Jackets</option>
-          <option value="Wovens">Wovens</option>
-          <option value="Knits">Knits</option>
-          <option value="Dresses">Dresses</option>
-          <option value="Other">Other</option>
-        </select>
-      </div>
+        <div class="form-label">Notes:</div>
+        <div class="form-input">
+            <input type="text" id="notes" placeholder="optional" />
+        </div>
     </div>
-
+</div>
     <div class="size-grid-container">
     <div id="sizeGrid" class="size-grid"></div>
     </div>
 
     <div class="button-row">
       <button id="addEntryBtn" class="add-entry">Add Entry</button>
-      <button id="clearProductInfoBtn" class="clear-product-entry">Clear Product Entry</button>
       <button id="exportBtn" class="export-btn">Export to Excel</button>
     </div>
 <br>
@@ -90,14 +88,18 @@
 <button id="toggleInfo">Show Information About Application</button>
 <div class="bottom-info" id="infoBox" style="display: none;">
 <span>//APPLICATION INFORMATION//</span>
-<span><li><strong>Purpose:</strong> This app allows you to track and export missing size data across various product types by gender.</li></span>
-<span><li><strong>Required Fields:</strong> To add an entry, you must fill out <em>Store Name</em>, <em>Product Name</em>, <em>Product Code</em>, <em>Gender</em>, and <em>Product Type</em>.</li></span>
-<span><li><strong>Size Grid:</strong> Size options dynamically adjust based on selected gender and product type.</li></span>
-<span><li><strong>Entry List:</strong> Entries are sorted by gender and grouped by product type.</li></span>
+<span><li><strong>Purpose:</strong> This app allows you to track and export missing size data across various product types by gender. Data is loaded automatically from Mens and Womens assortment lists for S2025.</li></span>
+<span><li><strong>Required Fields:</strong> To add an entry, you must fill out <em>Store Name</em> and select <em>Gender</em>, <em>Product Name</em>, <em>Product Code</em>, and at least one <em>Size</em>.</li></span>
+<span><li><strong>Size Grid:</strong> Size options dynamically adjust based on the automatically determined product type. Sizes are sorted logically (e.g., XS, S, M, L or numerically) when an entry is added.</li></span>
+<span><li><strong>Entry List:</strong> Entries are sorted by gender and then grouped by product type.</li></span>
 <span><li><strong>Size Limitations:</strong> Plus sizes are currently not supported.</li></span>
 <span><li><strong>Mobile Use:</strong> This app is mobile-friendly and supports touch selection for size buttons.</li></span>
 </div>
-  </div>
+</div>
+
+<br>
+
+</div>
 
   <script src="script.js"></script>
 </body>
