@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
+  <title>Product List Search</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+</head>
+<body>
+ <div class="app-header-notch">
+   <div class="hamburger-menu-container">
+     <div id="hamburgerIcon" class="hamburger-icon">
+       <i class="fas fa-bars"></i>
+     </div>
+     <div id="dropdownMenu" class="dropdown-menu">
+       <a href="index.html">Home</a>
+       <a href="other-page1.html">Product List App</a>
+       <a href="another-page.html">Product Search App</a>
+       </div>
+   </div>
+
+   <span class="header-title">Product List Search</span> 
+
+   <div class="header-spacer"></div> 
+ </div>
+
+  <div class="app-container">
+    <div class="tab-container">
+      <div class="tab-buttons">
+        <button id="mensTabButton" class="tab-button active" onclick="openTab('mens')">Men's</button>
+        <button id="womensTabButton" class="tab-button" onclick="openTab('womens')">Women's</button>
+      </div>
+      <button id="resetButton" class="reset-button">Reset View</button>
+    </div>
+
+    <div class="search-bar-container">
+      <input type="text" id="searchInput" placeholder="Search by Name, Code, Finish, Type...">
+    </div>
+
+    <div class="product-name-select-container">
+      <select id="productNameSelect">
+        <option value="">-- Select a Product Name --</option>
+      </select>
+    </div>
+
+    <div id="productListDisplayWindow" class="product-list-display-window">
+      <p class="message">Loading products or make a selection to see details.</p>
+    </div>
+
+    <div id="selectedProductDetailContainer" class="selected-product-detail-container">
+      </div>
+
+  </div>
+  
+  <script src="script.js"></script>
+</body>
+</html>

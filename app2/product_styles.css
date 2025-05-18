@@ -1,0 +1,390 @@
+/* Base styles */
+body {
+  font-family: Arial, sans-serif;
+  margin: 0; 
+  padding: 0; 
+  background: #f5f5f5;
+  color: #333;
+}
+
+/* Header styling */
+.app-header-notch {
+  background-color: #0056b3; 
+  color: white;
+  padding: 16px 20px; 
+  text-align: center;
+  font-size: 1.8rem; 
+  font-weight: bold;
+  margin-bottom: 0; 
+}
+
+/* Main application container */
+.app-container {
+  max-width: 800px;
+  margin: 0 auto; 
+  background: white;
+  padding: 1rem;
+  border-radius: 0 0 12px 12px; 
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+/* Product name dropdown container */
+.product-name-select-container {
+  margin-bottom: 1rem;
+}
+
+/* Styling for select dropdowns */
+#productNameSelect {
+  width: 100%;
+  padding: 0.75rem;
+  border-radius: 6px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+  font-size: 0.95rem; 
+  background-color: white; 
+  color: #333; 
+}
+
+#productNameSelect:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* General styling for text inputs and select elements */
+input[type="text"], select { 
+  width: 100%; 
+  padding: 0.75rem; 
+  border-radius: 6px; 
+  border: 1px solid #ccc;
+  box-sizing: border-box; 
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
+}
+
+input[type="text"]:focus, select:focus { 
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
+}
+
+/* Tab container for gender tabs and reset button */
+.tab-container {
+  display: flex;
+  justify-content: space-between; 
+  align-items: center; 
+  margin-bottom: 1rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 5px; 
+}
+
+.tab-buttons {
+    display: flex; 
+}
+
+/* Individual tab button styling */
+.tab-button {
+  padding: 10px 15px; 
+  cursor: pointer;
+  border: none;
+  background-color: transparent;
+  font-size: 1rem;
+  font-weight: 500;
+  color: #555;
+  border-bottom: 3px solid transparent; 
+  margin-right: 5px; 
+  transition: color 0.2s ease, border-bottom-color 0.2s ease;
+}
+
+.tab-button:hover {
+  color: #0056b3;
+}
+
+.tab-button.active {
+  color: #0056b3;
+  border-bottom-color: #0056b3;
+}
+
+/* Reset button styling */
+.reset-button {
+    padding: 7px 14px; 
+    background-color: #6c757d; 
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 0.85rem; 
+    font-weight: 500;
+    transition: background-color 0.2s ease;
+    margin-left: auto; 
+}
+
+.reset-button:hover {
+    background-color: #5a6268; 
+}
+
+/* Search bar container */
+.search-bar-container {
+  margin-bottom: 1rem;
+}
+
+#searchInput { 
+  font-size: 1rem; 
+}
+
+/* Product List Display Window (Scroll Box for lists) */
+.product-list-display-window {
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  background-color: #f9f9f9; 
+  min-height: 100px; 
+  max-height: 30vh; 
+  overflow-y: auto; 
+  margin-bottom: 1rem; 
+}
+
+/* Selected Product Detail Container (Below Scroll Box) */
+.selected-product-detail-container {
+    padding: 0; 
+}
+
+/* General product item styling */
+.product-item {
+  background-color: white;
+  border: 1px solid #e0e0e0; 
+  border-radius: 6px;
+  padding: 10px 12px; 
+  margin-bottom: 8px; 
+  box-shadow: 0 1px 2px rgba(0,0,0,0.03); 
+  transition: box-shadow 0.2s ease, background-color 0.2s ease;
+}
+
+.product-list-display-window .product-item {
+    cursor: pointer;
+}
+.product-list-display-window .product-item:hover {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.06); 
+  background-color: #f0f8ff; 
+}
+
+.selected-product-detail-container .product-item {
+    margin-bottom: 0; 
+    cursor: default; 
+    border: 1px solid #cce5ff; 
+    background-color: #f7faff; 
+}
+
+/* Summary view for items in the product list */
+.summary-view { 
+  display: flex;
+  justify-content: flex-start;   
+  align-items: center;
+  gap: 8px; 
+  font-size: 0.85rem; 
+  flex-wrap: wrap; 
+}
+
+.summary-view .summary-name {
+  font-weight: bold;
+  color: #0056b3;
+  flex-grow: 0; 
+  margin-right: 4px; 
+}
+
+.summary-view .summary-code,
+.summary-view .summary-finish {
+  white-space: nowrap; 
+  color: #333;
+  margin-right: 4px; 
+}
+.summary-view span:last-child {
+    margin-right: 0; 
+}
+
+/* Detailed view for the single selected product - more compact */
+.detailed-view { }
+
+.detailed-view p {
+  margin: 4px 0; 
+  font-size: 0.85rem; 
+  color: #333;
+  line-height: 1.4; 
+}
+
+.detailed-view strong {
+  color: #111; 
+  font-weight: 600; 
+  margin-right: 3px; 
+}
+
+/* Container for list of product codes (when selecting a ProductName) */
+.product-code-list-container { 
+    padding: 8px; 
+}
+
+.product-code-list-title {
+    font-size: 1rem; 
+    font-weight: bold;
+    color: #0056b3;
+    margin-bottom: 8px; 
+}
+
+/* MODIFIED: Individual product code item styling to accommodate more details */
+.product-code-item { 
+  background-color: #ffffff;
+  border: 1px solid #e0e0e0;
+  border-radius: 4px;
+  padding: 8px 10px; /* Adjusted padding */
+  margin-bottom: 6px; /* Adjusted margin */
+  font-size: 0.85rem; 
+  color: #333;
+  transition: background-color 0.2s ease, border-color 0.2s ease; 
+  display: flex; /* Use flexbox for internal layout */
+  flex-wrap: wrap; /* Allow wrapping if space is tight */
+  gap: 8px; /* Space between details */
+  align-items: center;
+}
+
+.product-code-item .code-detail,
+.product-code-item .finish-detail,
+.product-code-item .doors-detail {
+    white-space: nowrap; /* Prevent individual parts from wrapping mid-text */
+}
+
+.product-code-item strong { 
+    color: #0056b3; 
+}
+
+.product-code-item.clickable-code { 
+    cursor: pointer;
+}
+.product-code-item.clickable-code:hover { 
+    background-color: #e9f5ff; 
+    border-color: #007bff; 
+}
+
+
+/* Message styling for empty states or errors */
+.product-list-display-window .message,
+.selected-product-detail-container .message { 
+    text-align: center;
+    color: #777;
+    font-style: italic;
+    padding: 20px;
+}
+
+/* Responsive adjustments */
+@media (max-width: 600px) {
+  .app-header-notch { 
+    font-size: 1.1rem;
+    padding: 10px 15px;
+  }
+  .app-container {
+    padding: 0.75rem; 
+  }
+  
+  #searchInput, #productNameSelect { 
+    padding: 0.6rem;
+    font-size: 0.9rem;
+  }
+  .product-list-display-window { 
+    min-height: 80px;
+    max-height: 25vh; 
+  }
+  .selected-product-detail-container .product-item { 
+    padding: 10px;
+  }
+  
+  .summary-view { 
+    gap: 6px; 
+    font-size: 0.8rem; 
+  }
+  .summary-view .summary-name,
+  .summary-view .summary-code,
+  .summary-view .summary-finish {
+      margin-right: 3px; 
+  }
+
+  .detailed-view p { 
+    font-size: 0.8rem; 
+    margin: 3px 0;
+  }
+
+  .product-code-item { /* For both code lists */
+    padding: 5px 8px;
+    font-size: 0.8rem;
+    gap: 5px; /* Smaller gap on mobile for code item details */
+  }
+  
+  .tab-container {
+    flex-wrap: wrap; 
+  }
+  .reset-button {
+      padding: 6px 10px;
+      font-size: 0.8rem;
+      margin-top: 5px; 
+      flex-basis: 100%; 
+      text-align: center;
+  }
+}
+
+
+/* Hamburger Menu Styling */
+
+/* Container for the hamburger icon and its dropdown */
+.hamburger-menu-container {
+  position: relative; /* Establishes a positioning context for the dropdown */
+  display: inline-block; /* Allows it to sit alongside other elements if needed */
+}
+
+/* Hamburger Icon Styling */
+.hamburger-icon {
+  font-size: 1.5rem; /* Adjust size as needed */
+  color: white; /* Assuming it's in the blue notch */
+  cursor: pointer;
+  padding: 5px 10px; /* Add some padding for easier clicking */
+  display: inline-block;
+  /* Position it to the left of the title if the notch uses flexbox or similar */
+}
+
+.hamburger-icon:hover {
+  opacity: 0.8; /* Slight hover effect */
+}
+
+/* Dropdown Menu Styling */
+.dropdown-menu {
+  display: none; /* Hidden by default */
+  position: absolute;
+  top: 100%; /* Position below the hamburger icon */
+  left: 0;
+  background-color: #f9f9f9;
+  min-width: 180px; /* Adjust as needed */
+  box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+  z-index: 1000; /* Ensure it's above other content */
+  border-radius: 0 0 4px 4px; /* Rounded bottom corners */
+  overflow: hidden; /* Ensures border-radius applies to children */
+}
+
+/* Style for links inside the dropdown */
+.dropdown-menu a {
+  color: black;
+  padding: 12px 16px;
+  text-decoration: none;
+  display: block;
+  font-size: 0.95rem;
+  border-bottom: 1px solid #eee; /* Separator lines */
+}
+
+.dropdown-menu a:last-child {
+  border-bottom: none; /* No border for the last item */
+}
+
+/* Change color of dropdown links on hover */
+.dropdown-menu a:hover {
+  background-color: #ddd;
+}
+
+/* Class to show the dropdown menu */
+.dropdown-menu.menu-open {
+  display: block;
+}
