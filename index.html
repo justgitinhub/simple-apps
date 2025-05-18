@@ -3,115 +3,48 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1" />
-  <title>Product List Application</title>
+  <title>Simple Apps Homepage</title>
   <link rel="stylesheet" href="styles.css" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
 </head>
 <body>
-  <div class="app-header-notch">
-    Product List Application
-  </div>
+ <div class="app-header-notch">
+   <div class="hamburger-menu-container">
+     <div id="hamburgerIcon" class="hamburger-icon">
+       <i class="fas fa-bars"></i> </div>
+     <div id="dropdownMenu" class="dropdown-menu">
+       <a href="index.html">Home</a>
+       <a href="other-page1.html">Product List App</a>
+       <a href="another-page.html">Product Search App</a>
+       </div>
+   </div>
+
+   <span class="header-title">Simple-Apps</span> 
+
+   <div class="header-spacer"></div> 
+ </div>
 
   <div class="app-container">
-
-    <div class="form-grid">
-      <div class="form-row">
-        <div class="form-label">Store Name:</div>
-        <div class="form-input"><input type="text" id="storeName" placeholder="e.g., 123 Orange Center" required /></div>
-      </div>
-      </div>
-<br>
-
- <div class="form-grid" id="productForm">
-  <div class="sec-title">PRODUCT ENTRY</div>
-
-        <div class="gender-selection" id="genderButtons"> <button class="gender-icon" data-gender="Mens" title="Mens" value="Mens">
-       <i class="fas fa-male fa-2x"></i>
-       <span>Mens</span>
-      </button>
-     <button class="gender-icon" data-gender="Womens" title="Womens" value="Womens">
-        <i class="fas fa-female fa-2x"></i>
-       <span>Womens</span>
-     </button>
+    <div class="image-banner-placeholder">
+      <p>Image Banner Area</p>
     </div>
-    <select id="gender" style="display:none;"></select> 
 
-  <div class="form-row">
-    <div class="form-label">Product Name:</div>
-    <div class="form-input">
-      <select id="productName" disabled>
-        <option value="">Select Gender First</option>
-      </select>
+    <div class="feature-blocks-container">
+      <a href="other-page1.html" class="feature-block" aria-label="Navigate to Product List App">
+        <div class="feature-block-title">Product List App</div>
+        </a>
+      <a href="another-page.html" class="feature-block" aria-label="Navigate to Product Search App">
+        <div class="feature-block-title">Product Search App </div>
+        </a>
     </div>
+
+    <div class="additional-content-placeholder">
+      <p>Simple-App Tools made by - J.</p>
+    </div>
+
   </div>
-
-  <div class="form-row">
-    <div class="form-label">Product Code:</div>
-    <div class="form-input">
-      <select id="productCode" disabled>
-        <option value="">Select Product Name First</option>
-      </select>
-    </div>
-  </div>
-
-  <div class="form-row" style="display: none;"> <div class="form-label">Product Type:</div>
-    <div class="form-input">
-      <input type="text" id="productType" disabled placeholder="Auto-filled from data" />
-    </div>
-  </div>
-
-    <div class="form-row">
-        <div class="form-label">Notes:</div>
-        <div class="form-input">
-            <input type="text" id="notes" placeholder="optional" />
-        </div>
-    </div>
- </div>
-    <div class="size-grid-container">
-    <div id="sizeGrid" class="size-grid"></div>
-    </div>
-
-    <div class="button-row">
-      <button id="addEntryBtn" class="add-entry">+ Add Entry</button>
-    </div>
-
-   <hr style="border: 1px solid rgb(221, 221, 221);">
-
-    <div class="entry-group-title">ENTRY LIST</div>
-    <div class="entry-list-container">
-    <div id="entryList" class="entry-list"></div>
-    </div>
-
-        <div class="button-row">
-      <button id="exportBtn" class="export-btn">Download List .XLSX</button>
-    </div>
-
-</div>
-<br>
-  <div class="bottom-container">
-   <button id="toggleInfo">+ App Instructions</button>
-    <div class="bottom-info" id="infoBox" style="display: none;">
-     <span><h2>// INSTRUCTIONS //</h2></span>
-     <span><li><strong>Required Fields:</strong> To add an entry, you must fill out <em>Store Name</em> and select <em>Gender</em>, <em>Product Name</em>, <em>Product Code</em>, and at least one <em>Size</em>. (Adding a note to an entry is optional.)</li></span>
-     <span><li><strong>Save Entry:</strong> Click the '+ Add Entry' button. The entry will appear in the list below.</li></span>
-     <span><li><strong>Deleting an Entry:</strong> Click the red circle icon on the top right of the entry to remove it.</li></span>
-     <span><li><strong>Downloading List:</strong> When all entries are added, click the 'Download List .XLSX' button. [[ Mobile - If a pop-up box appears on mobile, click the "Download" button in that pop-up. ]]</li></span>
-     <span><li><strong>Desktop Downloads:</strong> Files are saved to your "Downloads" folder or your specified default download location.</li></span>
-     <span><li><strong>Mobile Downloads:</strong> Open your device's "Files" app and check the "Downloads" folder.</li></span>
-<br>
-     <span><h2>// APPLICATION INFORMATION //</h2></span>
-     <span><li><strong>Purpose:</strong> This app allows you to track and export missing size data for products, categorized by gender.</li></span>
-     <span><li><strong>Dynamic Size Grid:</strong> Size options automatically update based on the selected product. Sizes are sorted logically (e.g., XS, S, M, L, or numerically).</li></span>
-     <span><li><strong>Entry List Organization:</strong> Entries are sorted first by gender, then grouped by product name.</li></span>
-     <span><li><strong>Downloaded Format:</strong> Your entry list will be saved as an Excel file (.xlsx). The filename will follow the format: 123_Store_Name_MissingSizes_[Date]. (e.g., 123_Store_MissingSizes_2025-05-1)</li></span>
-     <span><li><strong>Size Limitations:</strong> Plus sizes are currently not supported.</li></span>
-     <span><li><strong>Mobile Use:</strong> This app is mobile-friendly and supports touch selection for size buttons.</li></span>
-     <span><li><strong>Data Source:</strong> Spring/Summer 2025 (S2025) Men's and Women's assortment data is automatically loaded.</li></span>
-    </div>
-</div>
   
-
-<script src="script.js"></script>
+  <script src="script.js"></script>
 </body>
 </html>
