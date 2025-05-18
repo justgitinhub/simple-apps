@@ -1,22 +1,75 @@
 body {
   font-family: Arial, sans-serif;
-  margin: 0;
-  padding: 1rem;
+  margin: 0; /* Reset default margin */
+  padding: 0; /* Reset default padding */
   background: #f5f5f5;
+  color: #333;
 }
 
+/* New Header Notch Style */
+.app-header-notch {
+  background-color: #0056b3; /* Dark blue, similar to h1 */
+  color: white;
+  padding: 16px 20px; /* Adjust padding as needed */
+  text-align: center;
+  font-size: 1.8rem; /* Adjust font size as needed */
+  font-weight: bold;
+  /* box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2); */ /* Optional shadow */
+  margin-bottom: 0; /* Remove space between notch and container if desired, or add margin */
+  /* To make it full width:
+  width: 100%;
+  box-sizing: border-box; 
+  */
+}
+
+
 .app-container {
-  max-width: 600px;
-  margin: auto;
+  max-width: 800px;
+  margin: 0 auto; /* Center the container, remove top margin if notch is directly above */
+  /* margin-top: 0; */ /* Uncomment if you want no space between notch and container */
   background: white;
-  padding: 1.5rem;
-  border-radius: 12px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  border-radius: 0 0 12px 12px; /* Round bottom corners if notch is directly above */
+  /* border-radius: 12px; */ /* Use this if there's space between notch and container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+.bottom-container {
+  max-width: 700px;
+  margin: 0 auto;
+  background: white;
+  padding: 0rem;
+  border-radius: 12px 12px 12px 12px; /* Round bottom corners if notch is directly above */
+  /* border-radius: 12px; */ /* Use this if there's space between notch and container */
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+}
+
+h1 { /* This h1 inside app-container might be redundant now */
+  text-align: center;
+  color: #0056b3; 
+  margin-bottom: 0.5rem;
+  /* Consider reducing margin-top or removing if notch serves as main title */
+  margin-top: 0; 
+  font-size: 1.3rem; /* Can be smaller if notch is the main title */
+}
+
+.app-container > p:nth-of-type(1) { 
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1.5rem;
+}
+.app-container > p:nth-of-type(2) { 
+  text-align: center;
+  font-size: 0.9rem;
+  color: #555;
+  margin-bottom: 1rem;
+  min-height: 1.2em; 
 }
 
 .form-grid {
   display: grid;
-  gap: 0.75rem;
+  gap: 0.85rem; 
 }
 
 .form-row {
@@ -26,209 +79,438 @@ body {
 }
 
 .form-label {
-  width: 40%;
+  width: 38%;
   white-space: nowrap;
+  font-weight: 500; 
+  font-size: 0.95rem;
 }
 
 .form-input {
-  width: 58%;
+  width: 60%; 
 }
 
-input, select {
-  width: 92%;
-  padding: 1rem;
-  border-radius: 10px;
+input[type="text"], select {
+  width: 100%; 
+  padding: 0.5rem; 
+  border-radius: 6px; 
   border: 1px solid #ccc;
+  box-sizing: border-box; 
+  transition: border-color 0.2s ease-in-out, box-shadow 0.2s ease-in-out;
 }
 
-.size-grid {
-  margin: 1px 0;
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  justify-content: center;
+input[type="text"]:focus, select:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+  outline: none;
 }
 
-.size-grid button {
-  padding: 0.6rem  0.8rem;
-  border: 1px solid #888;
-  background: white;
-  cursor: pointer;
-  border-radius: 6px;
+select[disabled] {
+    background-color: #e9ecef;
+    opacity: 0.7;
 }
 
-.size-grid button.selected {
-  background: #007bff;
-  color: white;
+
+hr {
+  border: 0;
+  height: 1px;
+  background-color: #ddd;
+  margin: 1.5rem 0;
 }
 
-.button-row {
-  margin: 1rem 0;
-  display: flex;
-  justify-content: space-around;
-  gap: 0.5rem;
-}
-
-.export-btn {
-  background: #0bbc22;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 40%;
-  padding: 12px;
-}
-
-button {
-  padding: 0.5rem 1rem;
-  border: none;
-  border-radius: 8px;
-}
-
-.clear-product-entry {
-  background: #ff963f;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-}
-
-.add-entry {
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
-  font-weight: bold;
-  width: 40%;
-  padding: 12px;
-}
-
-.entry-item {
-  border: 1px solid #ccc;
-  border-radius: 8px;
-  padding: 0.2rem;
-  padding-left: 1.5rem;
-  margin-bottom: 0.5rem;
-  position: relative;
-  background: #ffffff;
-  font-size: 12px;
-}
-
-.delete-entry {
-  position: absolute;
-  right: 4px;
-  background-color: red;
-  color: white;
-  border-radius: 50%;
-  font-weight: bold;
-  width: 24px;
-  height: 24px;
-  padding: 0;
-}
-
-/* Entry List Container */
-.entry-list-container {
-  margin-top: 0rem;
-  padding-right: 1.5rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border: 2px solid #ddd;
-  border-radius: 2px;
-  background-color: #f9f9f9;
-  max-width: 100%;
-  max-height: 600px;
-  overflow-y: auto;
-}
-
-/* Size Grid Container */
-.size-grid-container {
-  margin-top: 1rem;
-  padding: 1rem;
-  border: 1px solid #ddd;
-  border-radius: 1rem;
-  background-color: #ffffff;
-  box-shadow: 0 1px 5px rgba(0, 0, 0, 0.05);
-}
-
-.entry-group-title {
-  font-weight: bold;
-  text-align: center;
-  margin-bottom: 0rem;
-  padding-left: 0rem;
-  line-height: 1.6;
-}
-
-/* Responsive tweaks */
-@media (max-width: 600px) {
-  .entry-list-container, .size-grid-container {
-    padding: 0.5rem;
-  }
-  .entry-item {
-    font-size: 0.9rem;
-  }
-}
-
-/* Gender Button Style */
 .gender-selection {
   display: flex;
-  justify-content: space-between;
-  gap: 12px;
+  justify-content: space-around; 
+  gap: 1rem; 
   padding: 10px 0;
   width: 100%;
+  margin-bottom: 0.2rem;
 }
 
 .gender-icon {
   display: flex;
   flex-direction: column;
   align-items: center;
-  background: #f5f5f5;
-  border: 2px solid transparent;
+  justify-content: center; 
+  background: #f8f9fa;
+  border: 2px solid #dee2e6;
   border-radius: 8px;
-  padding: 10px 15px;
+  padding: 12px 15px;
   cursor: pointer;
-  flex: 1;  /* Ensures the buttons take up equal width */
-  transition: border 0.2s ease;
+  flex: 1;
+  transition: border-color 0.2s ease, background-color 0.2s ease;
+  text-align: center;
+  min-height: 70px; 
+}
+
+.gender-icon:hover {
+  border-color: #007bff;
+  background-color: #e9f5ff;
 }
 
 .gender-icon.selected {
   border-color: #007bff;
-  background: #e0f0ff;
+  background: #e0f0ff; 
+  box-shadow: 0 2px 4px rgba(0,123,255,0.2);
 }
 
 .gender-icon i {
-  margin-bottom: 4px;
+  margin-bottom: 5px; 
+  color: #007bff; 
+}
+.gender-icon.selected i {
+  color: #0056b3; 
 }
 
 .gender-icon span {
-  font-size: 1rem;
-  text-align: center;
+  font-size: 0.95rem; 
+  font-weight: 500;
+  color: #333;
 }
-
-
-/* bottom information field */
-.bottom-info {
-  margin-top: 1rem;
-  padding-right: 1.5rem;
-  margin-bottom: 1rem;
-  padding: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 2px;
-  background-color: #ffffff;
-  max-width: 100%;
-  font-size: 12px;
-  span {display: block;
-    padding: 0.2rem;}
-}
-
 
 .sec-title {
   font-weight: bold;
   text-align: left;
-  margin-bottom: 0rem;
-  padding-left: 1rem;
+  margin-top: 0rem; 
+  margin-bottom: 0.1rem;
+  padding-left: 0; 
+  font-size: 18px; 
+  color: #0056b3;
+  border-bottom: 1px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+
+.size-grid-container {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ddd;
+  border-radius: 8px; 
+  background-color: #ffffff;
+}
+
+.size-grid {
+  margin: 0.2rem 0; 
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem; 
+  justify-content: center;
+}
+
+.size-grid button {
+  padding: 0.6rem  0.9rem; 
+  border: 1px solid #adb5bd; 
+  background: white;
+  color: #333;
+  cursor: pointer;
+  border-radius: 6px;
+  font-size: 0.85rem;
+  transition: background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+.size-grid button:hover {
+  background-color: #f0f0f0;
+  border-color: #007bff;
+}
+
+.size-grid button.selected {
+  background: #007bff;
+  color: white;
+  border-color: #0056b3; 
+}
+
+.button-row {
+  margin: 1rem 0; 
+  display: flex;
+  justify-content: space-around;
+  gap: 1rem; 
+}
+
+.add-entry, .export-btn {
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-weight: bold;
+  width: 30%; 
+  padding: 8px; 
+  font-size: 12px; 
+  transition: background-color 0.2s ease; 
+}
+
+.add-entry {
+  background: #007bff; 
+}
+.add-entry:hover {
+  background: #0056b3; 
+}
+
+.export-btn {
+  background: #0bbc22; 
+}
+.export-btn:hover {
+  background: #0a9b1c; 
+}
+
+#toggleInfo {
+    display: block;
+    width: 100%;
+    margin: 0rem auto 0.5rem auto; 
+    padding: 1rem 1rem; 
+    border-radius: 8px; 
+    background-color: #ffffff; 
+    color: #333; 
+    border: 1px solid #ccc; 
+    cursor: pointer;
+    font-size: 16px; 
+    text-align: center;
+    font-weight: 500;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
+}
+#toggleInfo:hover {
+    background-color: #e0e0e0;
+    border-color: #bbb;
+}
+
+.entry-group-title { 
+  font-weight: bold;
+  text-align: left;
+  margin-top: 1.5rem;
+  margin-bottom: 0.5rem; 
   font-size: 18px;
-  line-height: 1.6;
+  color: #0056b3;
+}
+
+.entry-list-container {
+  margin-top: 0.5rem; 
+  margin-bottom: 1rem;
+  padding: 0.5rem; 
+  border: 1px solid #ddd; 
+  border-radius: 8px; 
+  background-color: #f9f9f9;
+  max-width: 100%;
+  max-height: 450px; 
+  overflow-y: auto;
+}
+
+.entry-group-header {
+    font-weight: bold;
+    margin-top: 0.6rem; 
+    margin-bottom: 0.2rem; 
+    padding: 0.2rem 0.4rem; 
+    background-color: #e9ecef;
+    border-radius: 4px;
+    font-size: 0.85rem; 
+}
+.gender-header {
+    font-size: 0.95rem; 
+    color: #0056b3;
+}
+
+.product-name-header { 
+    margin-left: 8px; 
+    color: #333; 
+    font-weight: 600; 
+    background-color: #f0f0f0; 
+}
+
+/* Style for ProductType info line is removed in this version */
+/*
+.product-type-info-line { 
+    font-size: 0.75rem; 
+    color: #555;
+    margin-top: 0.1rem; 
+    margin-bottom: 0.1rem; 
+}
+*/
+
+.entry-item {
+  border: 1px solid #ccc;
+  border-radius: 5px; 
+  padding: 0.4rem 0.6rem; 
+  margin-bottom: 0.4rem; 
+  position: relative;
+  background: #ffffff;
+  font-size: 0.8rem; 
+  line-height: 1.3; 
+  margin-left: 15px; 
+}
+.entry-item:last-child {
+    margin-bottom: 0;
+}
+
+.clickable-entry {
+  cursor: pointer;
+  transition: background-color 0.15s ease-in-out;
+}
+
+.clickable-entry:hover {
+  background-color: #f0f8ff; 
+}
+
+.entry-item.expanded {
+  background-color: #e9f5ff; 
+  border-left: 3px solid #007bff; 
+}
+
+.entry-default-details {
+  padding: 0.1rem 0; 
+  padding-right: 28px; 
+}
+
+.entry-title-line {
+    display: flex;
+    justify-content: space-between; 
+    align-items: center; 
+    flex-wrap: wrap; 
+    gap: 10px; 
+    margin-bottom: 0.1rem; 
+}
+
+.product-name-display {
+    flex-grow: 1; 
+    min-width: 150px; 
+}
+.product-code-display {
+    flex-shrink: 0; 
+    white-space: nowrap; 
+}
+
+
+.entry-hidden-details {
+  padding: 0.4rem 0; 
+  margin-top: 0.4rem; 
+  border-top: 1px dashed #ced4da; 
+  padding-right: 28px; 
+  font-size: 0.75rem; 
+}
+.entry-hidden-details div {
+    margin-bottom: 0.2rem; 
+}
+.entry-hidden-details div:last-child {
+    margin-bottom: 0;
+}
+
+
+.entry-item strong {
+    font-weight: 500; 
+    color: #333; 
+}
+
+.delete-entry {
+  position: absolute;
+  top: 4px; 
+  right: 4px; 
+  background-color: #dc3545; 
+  color: white;
+  border: none;
+  border-radius: 50%;
+  font-weight: bold;
+  width: 20px; 
+  height: 20px; 
+  padding: 0;
+  font-size: 12px; 
+  line-height: 20px; 
+  text-align: center;
+  cursor: pointer;
+  z-index: 10; 
+  transition: background-color 0.2s ease;
+}
+
+.delete-entry:hover {
+  background-color: #c82333; 
+}
+
+.bottom-info {
+  margin-top: 1rem;
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 8px; 
+  background-color: #f8f9fa; 
+  font-size: 0.8rem; 
+  line-height: 1.5;
+}
+.bottom-info span {
+    display: block;
+    padding: 0.2rem 0;
+}
+.bottom-info span li {
+    margin-bottom: 0.3rem;
+}
+.bottom-info strong {
+    color: #333;
+}
+
+
+/* Responsive tweaks */
+@media (max-width: 600px) {
+  .app-header-notch { /* Ensure notch is responsive */
+    font-size: 1.1rem;
+    padding: 10px 15px;
+  }
+  .app-container {
+    padding: 1rem;
+  }
+  .bottom-container {
+    padding: 1rem;
+  }
+  h1 {
+    font-size: 1.2rem; /* Adjust if still using h1 inside container */
+  }
+  .form-label {
+    width: 100%; 
+    margin-bottom: 0.3rem;
+    text-align: left;
+  }
+  .form-input {
+    width: 100%;
+  }
+  .form-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  .gender-selection {
+    flex-direction: column; 
+  }
+  .gender-icon {
+    width: 100%; 
+    margin-bottom: 0.5rem;
+  }
+  .button-row {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+  .add-entry, .export-btn { 
+    width: 100%;
+  }
+  .entry-list-container {
+    max-height: 350px; 
+  }
+  .entry-item {
+    font-size: 0.75rem; 
+    margin-left: 5px; 
+    padding: 0.3rem 0.5rem;
+  }
+  .product-name-header { 
+    margin-left: 0px; 
+  }
+  .entry-title-line {
+    flex-direction: column; 
+    align-items: flex-start;
+    gap: 0;
+  }
+  .product-name-display, .product-code-display {
+    min-width: 0; 
+    margin-bottom: 0.1rem;
+  }
+  .entry-default-details, .entry-hidden-details {
+    padding-right: 25px; 
+  }
+  .delete-entry {
+    width: 18px;
+    height: 18px;
+    line-height: 18px;
+    font-size: 10px;
+    top: 5px;
+    right: 5px;
+  }
 }

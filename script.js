@@ -39,18 +39,20 @@ function getDOMElements() {
     elements.productTypeInput = document.getElementById("productType");
     elements.sizeGrid = document.getElementById("sizeGrid");
     elements.addEntryBtn = document.getElementById("addEntryBtn");
-    // elements.clearProductInfoBtn = document.getElementById("clearProductInfoBtn"); // Removed
     elements.entryList = document.getElementById("entryList");
     elements.exportBtn = document.getElementById("exportBtn");
     elements.toggleInfoBtn = document.getElementById("toggleInfo");
     elements.infoBox = document.getElementById("infoBox");
     elements.productForm = document.getElementById("productForm");
     elements.notes = document.getElementById("notes");
+    elements.appContainer = document.querySelector('.app-container'); // Cache app container
 }
 
 // Load Excel product list
 async function loadProductData() {
-    const loadingMessageP = document.querySelector('.app-container > p:nth-of-type(2)');
+    const loadingMessageP = document.querySelector('.app-container > p:nth-of-type(1)'); // Subtitle
+    const statusParagraph = document.querySelector('.app-container > p:nth-of-type(2)'); // Status message
+
     try {
         const response = await fetch('products.xlsx');
         if (!response.ok) throw new Error(`HTTP error! Status: ${response.status}`);
@@ -96,25 +98,24 @@ async function loadProductData() {
 
         if (!partialLoadSuccess) {
             const errorMsg = "No valid product data found. Check 'Mens'/'Womens' sheets and headers (ProductName, ProductCode, ProductType).";
-            if (loadingMessageP) loadingMessageP.innerHTML = `<strong style="color: red;">${errorMsg}</strong>`;
-            alert(errorMsg);
+            if (statusParagraph) statusParagraph.innerHTML = `<strong style="color: red;">${errorMsg}</strong>`;
             throw new Error(errorMsg);
         }
-        if (loadingMessageP) {
-            loadingMessageP.textContent = `Product data loaded (${loadedCount} items).`;
+        if (statusParagraph) {
+            statusParagraph.textContent = `Product data loaded (${loadedCount} items).`;
         }
 
     } catch (error) {
         console.error("Error loading/processing product data:", error);
-        if (loadingMessageP) loadingMessageP.innerHTML = `<strong style="color: red;">Failed to load. Details: ${error.message}</strong>`;
-        alert(`Failed to load/process product data. Details: ${error.message}`);
+        if (statusParagraph) {
+            statusParagraph.innerHTML = `<strong style="color: red;">Failed to load product data. Details: ${error.message}</strong>`;
+        }
         throw error;
     }
 }
 
 // Initialize event listeners
 function initEventListeners() {
-    // Destructure elements, excluding clearProductInfoBtn
     const { genderButtons, productNameSelect, productCodeSelect, addEntryBtn, exportBtn, toggleInfoBtn } = elements;
 
     document.querySelectorAll('.gender-icon').forEach(button => {
@@ -165,7 +166,6 @@ function initEventListeners() {
     });
 
     addEntryBtn.addEventListener("click", addEntry);
-    // clearProductInfoBtn.addEventListener("click", clearProductEntryForm); // Removed event listener
     exportBtn.addEventListener("click", exportToExcel);
     toggleInfoBtn.addEventListener("click", toggleInfoBox);
 }
@@ -191,36 +191,26 @@ function populateProductNames(gender) {
 function populateProductCodes(gender, selectedProductName) {
     const { productCodeSelect } = elements;
     productCodeSelect.innerHTML = '<option value="">Select Product Code</option>';
-
     const products = productDataByGender[gender];
     if (!products || products.length === 0 || !selectedProductName) {
         productCodeSelect.disabled = true; 
         return;
     }
-    
     const filteredProducts = products.filter(p => p.productName === selectedProductName);
-
     if (filteredProducts.length === 0) {
         productCodeSelect.disabled = true; 
         return; 
     }
-    
     const codes = filteredProducts.map(p => p.productCode);
     const uniqueCodes = [...new Set(codes)].filter(code => code); 
     uniqueCodes.sort();
-
     uniqueCodes.forEach(code => {
             const opt = document.createElement("option");
             opt.value = code; 
             opt.textContent = code;
             productCodeSelect.appendChild(opt);
     });
-
-    if (uniqueCodes.length > 0) {
-        productCodeSelect.disabled = false;
-    } else {
-        productCodeSelect.disabled = true;
-    }
+    productCodeSelect.disabled = uniqueCodes.length === 0;
 }
 
 // Update product type
@@ -239,6 +229,7 @@ function updateProductType(gender, selectedProductName, selectedProductCode) {
 function renderSizeButtons(gender, productType) {
   const { sizeGrid } = elements;
   sizeGrid.innerHTML = '';
+  selectedSizes.clear(); 
   let sizes = [];
     const type = String(productType || "").trim().toLowerCase();
     const currentGender = String(gender || "").trim().toLowerCase();
@@ -260,7 +251,7 @@ function renderSizeButtons(gender, productType) {
                 "27x28", "27x30", "27x32", "28x28", "28x30", "28x32", "29x28", "29x30", "29x32",
                 "30x28", "30x30", "30x32", "31x28", "31x30", "31x32", "32x28", "32x30", "32x32",
                 "33x28", "33x30", "33x32", "34x28", "34x30", "34x32"];
-    } else if (type === "altbottoms") {
+    } else if (type === "altbottoms") { 
         sizes = ['W24', 'W25', 'W26', 'W27', 'W28', 'W29', 'W30', 'W31', 'W32', 'W33', 'W34'];
     }
 
@@ -268,10 +259,15 @@ function renderSizeButtons(gender, productType) {
     const button = document.createElement('button');
     button.textContent = size;
     button.className = selectedSizes.has(size) ? 'selected' : '';
-    button.type = 'button';
+    button.type = 'button'; 
     button.addEventListener('click', () => {
-      selectedSizes.has(size) ? selectedSizes.delete(size) : selectedSizes.add(size);
-      button.classList.toggle('selected');
+      if (selectedSizes.has(size)) {
+          selectedSizes.delete(size);
+          button.classList.remove('selected');
+      } else {
+          selectedSizes.add(size);
+          button.classList.add('selected');
+      }
     });
     sizeGrid.appendChild(button);
   });
@@ -293,9 +289,20 @@ function sortSizes(sizesArray, productType) {
             return indexA - indexB;
         });
     }
-    return sizesArray.sort(); 
+    return sizesArray.sort((a, b) => {
+        const numA = parseInt(String(a).replace(/[^0-9x]/gi, ''), 10);
+        const numB = parseInt(String(b).replace(/[^0-9x]/gi, ''), 10);
+        if (!isNaN(numA) && !isNaN(numB) && String(a).includes('x') && String(b).includes('x')) {
+            const partsA = String(a).split('x').map(Number);
+            const partsB = String(b).split('x').map(Number);
+            if (partsA[0] !== partsB[0]) return partsA[0] - partsB[0];
+            return partsA[1] - partsB[1];
+        } else if (!isNaN(numA) && !isNaN(numB)) {
+             return numA - numB;
+        }
+        return String(a).localeCompare(String(b)); 
+    }); 
 }
-
 
 function addEntry() {
     const { storeName, genderSelect, productNameSelect, productCodeSelect, productTypeInput, notes } = elements;
@@ -332,94 +339,136 @@ function addEntry() {
       store, gender, productType, productName,
       productCode: formattedCode, productFinish,
       sizes: sortedSelectedSizes,
-      notes: notesValue, originalIndex: entries.length
+      notes: notesValue, 
+      originalIndex: entries.length 
     };
 
     entries.push(entry);
     renderEntries();
-    clearProductEntryForm(); // This function still exists and is called here
+    clearProductEntryForm(); 
 }
 
 // Render entries in the list
 function renderEntries() {
   const { entryList } = elements;
-  entryList.innerHTML = '';
-  const displayEntries = entries.map((e, i) => ({ ...e, originalIndex: i }));
+  entryList.innerHTML = ''; 
+
+  const displayEntries = entries.map((e, i) => ({ ...e, originalIndexForDeletion: i }));
+  
+  // **MODIFICATION START: Updated sorting order**
   displayEntries.sort((a, b) => {
-    if (a.gender < b.gender) return -1; if (a.gender > b.gender) return 1;
-    if (a.productType < b.productType) return -1; if (a.productType > b.productType) return 1;
-    if (a.productName < b.productName) return -1; if (a.productName > b.productName) return 1;
+    if (a.gender < b.gender) return -1; 
+    if (a.gender > b.gender) return 1;
+    // Secondary sort: ProductName
+    if (a.productName < b.productName) return -1; 
+    if (a.productName > b.productName) return 1;
+    // Tertiary sort: ProductCode (to order items under the same ProductName)
+    if (a.productCode < b.productCode) return -1;
+    if (a.productCode > b.productCode) return 1;
     return 0;
   });
-  let currentGender = null, currentProductType = null;
+  // **MODIFICATION END**
+
+  let currentGender = null;
+  let currentProductName = null; // **MODIFICATION: For tracking current product name group**
+
   displayEntries.forEach(entry => {
+    // Group by Gender
     if (entry.gender !== currentGender) {
       currentGender = entry.gender;
       const genderHeader = document.createElement('h3');
+      genderHeader.className = 'entry-group-header gender-header';
       genderHeader.textContent = currentGender;
-      genderHeader.style.marginTop = "1rem";
       entryList.appendChild(genderHeader);
-      currentProductType = null;
+      currentProductName = null; // Reset product name for new gender group
     }
-    if (entry.productType !== currentProductType) {
-      currentProductType = entry.productType;
-      const productTypeHeader = document.createElement('h4');
-      productTypeHeader.textContent = currentProductType;
-      productTypeHeader.style.marginLeft = "10px";
-      productTypeHeader.style.color = "#333";
-      entryList.appendChild(productTypeHeader);
+
+    // **MODIFICATION START: Group by ProductName**
+    if (entry.productName !== currentProductName) {
+      currentProductName = entry.productName;
+      const productNameHeader = document.createElement('h4');
+      // productNameHeader.className = 'entry-group-header product-type-header'; // Old class
+      productNameHeader.className = 'entry-group-header product-name-header'; // New class for ProductName
+      productNameHeader.textContent = currentProductName;
+      entryList.appendChild(productNameHeader);
     }
+    // **MODIFICATION END**
+
     const item = document.createElement('div');
-    item.className = 'entry-item';
-    item.style.marginLeft = "20px";
+    item.className = 'entry-item clickable-entry'; 
+
     const deleteBtn = document.createElement('button');
     deleteBtn.className = 'delete-entry';
-    deleteBtn.setAttribute('data-original-index', entry.originalIndex);
+    deleteBtn.setAttribute('data-original-array-index', entry.originalIndexForDeletion); 
     deleteBtn.setAttribute('title', 'Remove Entry');
     deleteBtn.textContent = '−';
+    deleteBtn.addEventListener('click', (event) => {
+      event.stopPropagation(); 
+      const indexInOriginalArray = parseInt(event.target.getAttribute('data-original-array-index'), 10);
+      entries.splice(indexInOriginalArray, 1);
+      renderEntries(); 
+    });
     item.appendChild(deleteBtn);
 
-    const details = document.createElement('div');
-    details.className = 'entry-details';
+    const defaultDetails = document.createElement('div');
+    defaultDetails.className = 'entry-default-details';
+    const titleLine = document.createElement('div');
+    titleLine.className = 'entry-title-line';
+    // Display ProductType within the entry item now, as it's not a primary group header
+    // Also, ProductCode is already in titleLine, so we ensure all necessary info is present.
+    titleLine.innerHTML = `
+      <div class="product-name-display"><strong>Product Name:</strong> ${entry.productName}</div>
+      <div class="product-code-display"><strong>Product Code:</strong> ${entry.productCode}</div>
+    `;
+    defaultDetails.appendChild(titleLine);
+
+    item.appendChild(defaultDetails);
+
+    const hiddenDetails = document.createElement('div');
+    hiddenDetails.className = 'entry-hidden-details';
+    hiddenDetails.style.display = 'none'; 
     const finishHTML = entry.productFinish ? `<div><strong>Finish:</strong> ${entry.productFinish}</div>` : '';
-    details.innerHTML = `
-      <div><strong>Product Name:</strong> ${entry.productName}</div>
-      <div><strong>Product Code:</strong> ${entry.productCode}</div>
+    hiddenDetails.innerHTML = `
       ${finishHTML}
       <div><strong>Sizes:</strong> ${entry.sizes.join(', ')}</div>
       ${entry.notes ? `<div><strong>Notes:</strong> ${entry.notes}</div>` : ''}
     `;
-    item.appendChild(details);
-    entryList.appendChild(item);
-  });
-  document.querySelectorAll('.delete-entry').forEach(button => {
-    button.addEventListener('click', (event) => {
-      const indexToDelete = parseInt(event.target.getAttribute('data-original-index'), 10);
-      entries.splice(indexToDelete, 1);
-      entries.forEach((e, i) => e.originalIndex = i);
-      renderEntries();
+    item.appendChild(hiddenDetails);
+    
+    item.addEventListener('click', () => {
+        const isHidden = hiddenDetails.style.display === 'none';
+        hiddenDetails.style.display = isHidden ? 'block' : 'none';
+        item.classList.toggle('expanded', isHidden); 
     });
+    
+    entryList.appendChild(item);
   });
 }
 
-// Clear product entry form fields (Product Name persists)
+// Clear product entry form fields
 function clearProductEntryForm() {
     const selectedGender = elements.genderSelect.value;
-    const currentProductName = elements.productNameSelect.value;
+    const currentProductName = elements.productNameSelect.value; 
+    
     elements.productCodeSelect.innerHTML = '<option value="">Select Product Code</option>';
-    elements.productTypeInput.value = ''; // Product Type is auto-filled and hidden, but still reset
+    elements.productTypeInput.value = ''; 
+    elements.notes.value = '';
+    
     if (selectedGender && currentProductName && productDataByGender[selectedGender]) {
         populateProductCodes(selectedGender, currentProductName);
     } else {
         elements.productCodeSelect.disabled = true;
     }
-    elements.notes.value = '';
+    
     elements.sizeGrid.innerHTML = '';
     selectedSizes.clear();
 }
 
 // Reset all product selections
 function resetProductSelections() {
+    document.querySelectorAll('.gender-icon.selected').forEach(b => b.classList.remove('selected'));
+    elements.genderSelect.value = ""; 
+
     elements.productNameSelect.innerHTML = '<option value="">Select Gender First</option>';
     elements.productNameSelect.disabled = true;
     elements.productCodeSelect.innerHTML = '<option value="">Select Product Name First</option>';
@@ -440,11 +489,14 @@ function exportToExcel() {
   const date = new Date().toISOString().split("T")[0];
   const filename = `${store.replace(/[^a-z0-9]/gi, '_')}_MissingSizes_${date}.xlsx`;
   const headers = ["Store", "Gender", "Product Type", "Product Name", "Product Code", "Product Finish", "Sizes Missing", "Notes"];
-  const entriesForExport = JSON.parse(JSON.stringify(entries));
+  
+  const entriesForExport = JSON.parse(JSON.stringify(entries)); 
+
   const dataToExport = [headers, ...entriesForExport.map(e => [
     e.store, e.gender, e.productType, e.productName, e.productCode,
-    e.productFinish || "", e.sizes.join(", "), e.notes
+    e.productFinish || "", e.sizes.join(", "), e.notes || "" 
   ])];
+
   const ws = XLSX.utils.aoa_to_sheet(dataToExport);
   ws['!cols'] = [
     {wch:Math.max(store.length, 15)}, {wch:10}, {wch:20}, {wch:30}, {wch:15}, {wch:20}, {wch:30}, {wch:30}
@@ -459,16 +511,19 @@ function toggleInfoBox() {
   const { infoBox, toggleInfoBtn } = elements;
   const isHidden = infoBox.style.display === "none";
   infoBox.style.display = isHidden ? "block" : "none";
-  toggleInfoBtn.textContent = isHidden ? "Minimize Info" : "Show Information About Application";
+  toggleInfoBtn.textContent = isHidden ? "Minimize Info" : "+ App Instructions";
 }
 
 // Load and Initialize
 document.addEventListener("DOMContentLoaded", () => {
-  getDOMElements();
+  getDOMElements(); 
+  
   loadProductData().then(() => {
       initEventListeners();
       document.querySelectorAll('.gender-icon').forEach(button => button.disabled = false);
+      resetProductSelections(); 
   }).catch(error => {
       console.error("Initialization failed due to product data load error:", error);
+      document.querySelectorAll('.gender-icon').forEach(button => button.disabled = true);
   });
 });
