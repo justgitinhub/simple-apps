@@ -107,7 +107,7 @@ body {
 
 /* 1. Image Banner Placeholder Styling */
 .image-banner-placeholder {
-  background-color: #e9ecef; /* Light grey, standard placeholder color */
+  background-color: #ffffff; /* #e9ecef Light grey, standard placeholder color */
   color: #6c757d; /* Muted text color */
   text-align: center;
   padding: 10px 10px; 
