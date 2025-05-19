@@ -113,7 +113,7 @@ body {
   padding: 10px 10px; 
   margin-bottom: 1.5rem; /* Space below the banner */
   border-radius: 8px; 
-  height: 100px; /* Example height, adjust as needed */
+  height: 200px; /* Example height, adjust as needed */
   display: flex;
   align-items: center;
   justify-content: center;
@@ -143,7 +143,7 @@ body {
   flex-direction: column;
   justify-content: flex-start; /* Align content (title) to the top */
   align-items: flex-start; /* Align content (title) to the left */
-  background: linear-gradient(135deg, #667eea, #764ba2); 
+  background: linear-gradient(135deg, #66b7ea, #f0dfc6); 
   transition: transform 0.3s ease, box-shadow 0.3s ease;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
