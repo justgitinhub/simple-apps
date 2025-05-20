@@ -9,13 +9,17 @@ body {
 
 /* Header styling */
 .app-header-notch {
-  background-color: #0056b3; 
+  background-color: #0056b3; /* Original blue */
+  /* background: linear-gradient(to right, #0056b3, #007bff); Slightly more modern gradient */
   color: white;
-  padding: 16px 20px; 
-  text-align: center;
-  font-size: 1.8rem; 
+  padding: 15px 20px; /* Adjusted padding */
+  font-size: 1.6rem; /* Slightly adjusted font size */
   font-weight: bold;
   margin-bottom: 0; 
+  display: flex; /* Use flexbox for alignment */
+  align-items: center; /* Vertically center items */
+  justify-content: space-between; /* Distribute space */
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1); /* Subtle shadow for depth */
 }
 
 /* Main application container */
