@@ -488,18 +488,18 @@ function exportToExcel() {
   const store = storeName.value.trim() || "Export";
   const date = new Date().toISOString().split("T")[0];
   const filename = `${store.replace(/[^a-z0-9]/gi, '_')}_MissingSizes_${date}.xlsx`;
-  const headers = ["Store", "Gender", "Product Type", "Product Name", "Product Code", "Product Finish", "Sizes Missing", "Notes"];
+  const headers = ["Store", "Gender", "Product Name", "Product Code", "Product Finish", "Sizes Missing", "Notes"];
   
   const entriesForExport = JSON.parse(JSON.stringify(entries)); 
 
   const dataToExport = [headers, ...entriesForExport.map(e => [
-    e.store, e.gender, e.productType, e.productName, e.productCode,
+    e.store, e.gender, e.productName, e.productCode,
     e.productFinish || "", e.sizes.join(", "), e.notes || "" 
   ])];
 
   const ws = XLSX.utils.aoa_to_sheet(dataToExport);
   ws['!cols'] = [
-    {wch:Math.max(store.length, 15)}, {wch:10}, {wch:20}, {wch:30}, {wch:15}, {wch:20}, {wch:30}, {wch:30}
+    {wch:Math.max(store.length, 15)}, {wch:10}, {wch:30}, {wch:15}, {wch:20}, {wch:70}, {wch:30}
   ];
   const wb = XLSX.utils.book_new();
   XLSX.utils.book_append_sheet(wb, ws, "Missing Sizes");
