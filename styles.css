@@ -10,6 +10,8 @@ body {
 
 /* Header styling */
 .app-header-notch {
+  max-width: 800px;
+  margin: 0 auto;
   background-color: #0056b3; /* Original blue */
   /* background: linear-gradient(to right, #0056b3, #007bff); Slightly more modern gradient */
   color: white;
